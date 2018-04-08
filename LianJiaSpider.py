@@ -339,7 +339,7 @@ def exception_read():
     从日志中读取异常信息
     """
     lock.acquire()
-    f=open('log.txt','r')
+    f=open('log.txt','w+')
     lines=f.readlines()
     f.close()
     f=open('log.txt','w')
