@@ -32,7 +32,9 @@ def get_prop(panelText, propName):
 	return None
 
 def extract_props(childText):
-	for propName in [x for x in propNames]:
+	global propNames
+	tmpPropNames = [x for x in propNames]
+	for propName in tmpPropNames:
 		propValue = get_prop(childText, propName)
 		if propValue:
 			data[propName] = propValue
