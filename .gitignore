@@ -2,3 +2,4 @@
 *.db
 *.html
 log.txt
+.idea
