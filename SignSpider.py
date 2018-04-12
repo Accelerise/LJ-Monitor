@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-@author: 冰蓝
-@site: http://lanbing510.info
-"""
 
 import re
 import urllib2
@@ -12,8 +8,8 @@ import threading
 from bs4 import BeautifulSoup
 from extractor import extract_cj
 from SQLiteWraper import SQLiteWraper, gen_chengjiao_insert_command
-from agent import hds
-from XiaoQuSpider import do_xiaoqu_spider, xiaoqu_spider
+from common import hds, regions
+from exception import writeWithLogFile, readWithLogFile
 
 import sys
 reload(sys)
@@ -25,14 +21,8 @@ import LianJiaLogIn
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 
-
-#北京区域列表
-regions=[u"东城",u"西城",u"朝阳",u"海淀",u"丰台",u"石景山",u"通州",u"昌平",u"大兴",u"亦庄开发区",u"顺义",u"房山",u"门头沟",u"平谷",u"怀柔",u"密云",u"延庆",u"燕郊"]
-
-
-lock = threading.Lock()
-
-
+exception_write = writeWithLogFile('sign_log.txt')
+exception_read = readWithLogFile('sign_log.txt')
 
 def search(pattern, content, group = 0):
     res = re.search(pattern, content)
@@ -135,31 +125,6 @@ def do_xiaoqu_chengjiao_spider(db_xq,db_cj):
     print 'done'
 
 
-def exception_write(fun_name,xq_name,url):
-    """
-    写入异常信息到日志
-    """
-    lock.acquire()
-    f = open('log.txt','a')
-    line="%s %s %s\n" % (fun_name,xq_name,url)
-    f.write(line)
-    f.close()
-    lock.release()
-
-
-def exception_read():
-    """
-    从日志中读取异常信息
-    """
-    lock.acquire()
-    f=open('log.txt','w+')
-    lines=f.readlines()
-    f.close()
-    f=open('log.txt','w')
-    f.truncate()
-    f.close()
-    lock.release()
-    return lines
 
 
 def exception_spider(db_cj):
@@ -195,10 +160,6 @@ if __name__=="__main__":
     command="create table if not exists chengjiao (href TEXT primary key UNIQUE, name TEXT, style TEXT, area TEXT, sign_time TEXT, unit_price TEXT, total_price TEXT,lng_lat TEXT)"
     db_cj=SQLiteWraper('lianjia-detail-cj.db',command)
 
-    #爬下所有的小区信息
-    # for region in regions:
-    #     do_xiaoqu_spider(db_xq,region)
-    
     #爬下所有小区里的成交信息
     do_xiaoqu_chengjiao_spider(db_xq,db_cj)
     

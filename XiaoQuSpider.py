@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-@author: 冰蓝
-@site: http://lanbing510.info
-"""
 
 import re
 import urllib2
 import random
 from bs4 import BeautifulSoup
 import threading
-from SQLiteWraper import gen_xiaoqu_insert_command
-from agent import hds
+from SQLiteWraper import SQLiteWraper, gen_xiaoqu_insert_command
+from common import hds, regions
 
 import sys
 reload(sys)
@@ -85,3 +81,11 @@ def do_xiaoqu_spider(db_xq, region=u"昌平"):
     for t in threads:
         t.join()
     print u"爬下了 %s 区全部的小区信息" % region
+
+
+if __name__=="__main__":
+    command="create table if not exists xiaoqu (name TEXT primary key UNIQUE, regionb TEXT, regions TEXT, style TEXT, year TEXT)"
+    db_xq=SQLiteWraper('lianjia-xq.db',command)
+    #爬下所有的小区信息
+    for region in regions:
+        do_xiaoqu_spider(db_xq,region)
