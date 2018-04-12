@@ -10,7 +10,7 @@ import cookielib
 import random
 import threading
 from bs4 import BeautifulSoup
-from extractor import extract
+from extractor import extract_cj
 from SQLiteWraper import SQLiteWraper, gen_chengjiao_insert_command
 from agent import hds
 from XiaoQuSpider import do_xiaoqu_spider, xiaoqu_spider
@@ -72,7 +72,7 @@ def chengjiao_spider(db_cj,xq_name,url_page=u"http://bj.lianjia.com/chengjiao/pg
             # detail_source_code = opener.open(req, timeout=10).read()
             detail_source_code = urllib2.urlopen(detail_req,timeout=10).read()
             detail_plain_text=unicode(detail_source_code)
-            extract_res = extract(detail_plain_text)
+            extract_res = extract_cj(detail_plain_text)
             info_dict.update(extract_res)
         except (urllib2.HTTPError, urllib2.URLError), e:
             print e
