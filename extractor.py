@@ -12,6 +12,7 @@ totalPriceRule = ur'[\d.]+万'
 signDateRule = ur'\d{4}\.\d{2}.\d{2}'
 positionRule = ur'resblockPosition:\'([\d.]+,[\d.]+)\''
 rentRule = ur'[\d.]+\s+元/月'
+hireType = ur'[整合]租'
 
 
 cjPropsMap = {
@@ -27,7 +28,8 @@ zfPropsMap = {
     u'户型': styleRule,
     u'面积': sizeRule,
     u'租金': rentRule,
-    u'经纬度': positionRule
+    u'经纬度': positionRule,
+    u'出租类型': hireType
 }
 
 esPropsMap = {

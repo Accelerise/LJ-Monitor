@@ -102,3 +102,17 @@ def gen_chengjiao_insert_command(info_dict):
     command=(r"insert into chengjiao values(?,?,?,?,?,?,?,?)",t)
     return command
 
+def gen_hire_insert_command(info_dict):
+    """
+    生成租房记录数据库插入命令
+    """
+    info_list = [u'链接', u'户型', u'面积', u'租金', u'出租类型', u'经纬度']
+    t = []
+    for il in info_list:
+        if il in info_dict:
+            t.append(info_dict[il])
+        else:
+            t.append('')
+    t = tuple(t)
+    command = (r"insert into hire values(?,?,?,?,?,?)", t)
+    return command
