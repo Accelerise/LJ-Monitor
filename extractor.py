@@ -5,7 +5,7 @@
 from lxml import etree
 import re
 
-styleRule = ur'(\d室\d厅(\d卫)?)'
+styleRule = ur'(\d室\d厅(\d卫)?)|(\d房间(\d卫)?)'
 sizeRule = ur'[\d.]+平米'
 unitPriceRule = ur'[\d.]+元/平'
 totalPriceRule = ur'[\d.]+万'
