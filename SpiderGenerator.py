@@ -45,11 +45,7 @@ def do_spider(db, pre_conf):
     exception_read = readWithLogFile(name + '_log.txt')
 
     bf = Bloomfilter(10000000, 0.00001)
-    spidered_urls = []
-    if mode == "increment":
-        spidered_urls = spidered_urls + db.fetchall("select href from " + name)
-        for spidered_url in spidered_urls:
-            bf.add(spidered_url[0])
+
 
     def list_spider(list_url):
         try:
@@ -149,11 +145,22 @@ def do_spider(db, pre_conf):
             excep_list = exception_read()
         print 'all done ^_^'
 
-    count = 0
-    for region in regionsPinYin:
-        region_spider(region)
-        count = count + 1
-        print '%s: have spidered %s region -- %d' % (name + "_spider", region, count)
+    spidered_urls = []
+
+    if mode == "specific":
+       for spidered_url in spidered_urls:
+           detail_spider(spidered_url)
+    else:
+        if mode == "increment":
+            spidered_urls = spidered_urls + db.fetchall("select href from " + name)
+            for spidered_url in spidered_urls:
+                bf.add(spidered_url[0])
+        count = 0
+        for region in regionsPinYin:
+            region_spider(region)
+            count = count + 1
+            print '%s: have spidered %s region -- %d' % (name + "_spider", region, count)
+
 
     # 重新爬取爬取异常的链接
     exception_spider()
