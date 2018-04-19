@@ -102,7 +102,7 @@ def gen_chengjiao_insert_command(info_dict):
     command=(r"insert or ignore into chengjiao values(?,?,?,?,?,?,?,?)",t)
     return command
 
-def gen_hire_insert_command(info_dict):
+def gen_zufang_insert_command(info_dict):
     """
     生成租房价格信息数据库插入命令
     """
@@ -114,7 +114,7 @@ def gen_hire_insert_command(info_dict):
         else:
             t.append('')
     t = tuple(t)
-    command = (r"insert or ignore into hire values(?,?,?,?,?,?)", t)
+    command = (r"insert or ignore into zufang values(?,?,?,?,?,?)", t)
     return command
 
 def gen_ershou_insert_command(info_dict):
