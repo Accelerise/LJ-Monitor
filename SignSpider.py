@@ -5,6 +5,7 @@ import urllib2
 import cookielib
 import random
 import threading
+from Bloom import Bloomfilter
 from bs4 import BeautifulSoup
 from extractor import extract_cj
 from SQLiteWraper import SQLiteWraper, gen_chengjiao_insert_command
@@ -23,6 +24,8 @@ opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 
 exception_write = writeWithLogFile('sign_log.txt')
 exception_read = readWithLogFile('sign_log.txt')
+
+bf = Bloomfilter(10000000, 0.0001)
 
 def search(pattern, content, group = 0):
     res = re.search(pattern, content)
@@ -50,11 +53,14 @@ def chengjiao_spider(db_cj,xq_name,url_page=u"http://bj.lianjia.com/chengjiao/pg
     # print u'搜索到成交数量：' + str(cj_list.__len__())
     # print u'地址' + url_page
     for cj in cj_list:
+
         info_dict={}
         href=cj.find('a')
         if not href:
             continue
         url = href.attrs['href']
+        if bf.isContain(url):
+            continue
         info_dict.update({u'链接':url})
         info_dict.update({u'小区名称':xq_name})
         try:
@@ -118,6 +124,9 @@ def do_xiaoqu_chengjiao_spider(db_xq,db_cj):
     """
     count=0
     xq_list=db_xq.fetchall()
+    cj_url_list = db_cj.fetchall("select href from xiaoqu")
+    for cj_url in cj_url_list:
+        bf.add(cj_url)
     for xq in xq_list:
         xiaoqu_chengjiao_spider(db_cj,xq[0])
         count+=1
