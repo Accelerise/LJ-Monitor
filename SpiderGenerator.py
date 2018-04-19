@@ -6,6 +6,7 @@ import cookielib
 import random
 import threading
 import json
+from Bloom import Bloomfilter
 from bs4 import BeautifulSoup
 from extractor import extract_es
 from SQLiteWraper import SQLiteWraper, gen_ershou_insert_command
@@ -23,7 +24,7 @@ import LianJiaLogIn
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 
-
+modes = ["entire", "increment", "specific"]
 
 def search(pattern, content, group=0):
     res = re.search(pattern, content)
@@ -36,11 +37,19 @@ def do_spider(db, pre_conf):
     extract = pre_conf['extract']
     gen_sql_command = pre_conf['gen_sql_command']
     info_class_name = pre_conf.get('info_class_name', 'info')
+    mode = pre_conf.get('mode', 'entire')
 
     list_spider_name = name + "_list_spider"
     detail_spider_name = name + "_detail_spider"
     exception_write = writeWithLogFile(name + '_log.txt')
     exception_read = readWithLogFile(name + '_log.txt')
+
+    bf = Bloomfilter(10000000, 0.00001)
+    spidered_urls = []
+    if mode == "increment":
+        spidered_urls = spidered_urls + db.fetchall("select href from " + name)
+        for spidered_url in spidered_urls:
+            bf.add(spidered_url[0])
 
     def list_spider(list_url):
         try:
@@ -63,7 +72,10 @@ def do_spider(db, pre_conf):
             if not href:
                 continue
             url = href.attrs['href']
-            detail_spider(url)
+            if not bf.isContain(url):
+                print "「%s」 is Contained!" % url
+                detail_spider(url)
+                bf.add(url)
 
 
     def detail_spider(url):
@@ -125,10 +137,10 @@ def do_spider(db, pre_conf):
                 if excep == "":
                     continue
                 excep_name, url = excep.split(" ", 2)
-                if excep_name == "ershou_list_spider":
+                if excep_name == name + "_list_spider":
                     list_spider(url)
                     count += 1
-                elif excep_name == "ershou_detail_spider":
+                elif excep_name == name + "_detail_spider":
                     detail_spider(url)
                     count += 1
                 else:
@@ -156,6 +168,7 @@ if __name__ == "__main__":
         "name": "ershou",
         "url_base": u"http://bj.lianjia.com/ershoufang/",
         "extract": extract_es,
-        "gen_sql_command": gen_ershou_insert_command
+        "gen_sql_command": gen_ershou_insert_command,
+        "mode": 'increment'
     }
     do_spider(db, pre_conf)

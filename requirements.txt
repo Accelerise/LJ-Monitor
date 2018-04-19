@@ -1,3 +1,5 @@
 lxml
 bs4
 cssselect
+mmh3
+bitarray
