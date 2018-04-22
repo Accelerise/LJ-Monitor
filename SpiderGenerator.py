@@ -122,8 +122,11 @@ def do_spider(db, pre_conf):
             d = json.loads(content.get('page-data'))
             total_pages = d['totalPage']
         threads = []
+        date_order_str = "cos32"
+        if name == "zufang":
+            date_order_str = "rco10"
         for i in range(total_pages):
-            list_url = u"%s%s/pg%d" % (url_base, region, i + 1)
+            list_url = u"%s%s/pg%d%s" % (url_base, region, i + 1, date_order_str)
             t = threading.Thread(target=list_spider, args=(list_url,))
             threads.append(t)
         for t in threads:
