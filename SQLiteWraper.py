@@ -83,7 +83,7 @@ def gen_xiaoqu_insert_command(info_dict):
         else:
             t.append('')
     t=tuple(t)
-    command=(r"insert or ignore into xiaoqu values(?,?,?,?,?)",t)
+    command=(r"insert or replace into xiaoqu values(?,?,?,?,?)",t)
     return command
 
 
@@ -99,7 +99,7 @@ def gen_chengjiao_insert_command(info_dict):
         else:
             t.append('')
     t=tuple(t)
-    command=(r"insert or ignore into chengjiao values(?,?,?,?,?,?,?,?)",t)
+    command=(r"insert or replace into chengjiao values(?,?,?,?,?,?,?,?)",t)
     return command
 
 def gen_zufang_insert_command(info_dict):
@@ -114,7 +114,7 @@ def gen_zufang_insert_command(info_dict):
         else:
             t.append('')
     t = tuple(t)
-    command = (r"insert or ignore into zufang values(?,?,?,?,?,?)", t)
+    command = (r"insert or replace into zufang values(?,?,?,?,?,?)", t)
     return command
 
 def gen_ershou_insert_command(info_dict):
@@ -129,7 +129,7 @@ def gen_ershou_insert_command(info_dict):
         else:
             t.append('')
     t = tuple(t)
-    command = (r"insert or ignore into ershou values(?,?,?,?,?,?)", t)
+    command = (r"insert or replace into ershou values(?,?,?,?,?,?)", t)
     return command
 
 def gen_price_insert_command(info_dict):
@@ -141,5 +141,5 @@ def gen_price_insert_command(info_dict):
         else:
             t.append('')
     t = tuple(t)
-    command = (r"insert or ignore into price values(?,?,?,?,?)", t)
+    command = (r"insert or replace into price values(?,?,?,?,?)", t)
     return command

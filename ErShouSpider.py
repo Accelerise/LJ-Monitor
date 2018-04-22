@@ -9,11 +9,14 @@ if __name__ == "__main__":
 
     command = "create table if not exists ershou (href TEXT primary key UNIQUE, style TEXT, area TEXT, unit_price TEXT, total_price TEXT,lng_lat TEXT)"
     db = SQLiteWraper('lianjia-detail-es.db', command)
+    command = "create table if not exists price (href TEXT, time_stamp INTEGER, unit_price TEXT, total_price TEXT, rent TEXT, PRIMARY KEY (href, time_stamp))"
+    db.execute(command)
     pre_conf = {
         "name": "ershou",
         "url_base": u"http://bj.lianjia.com/ershoufang/",
         "extract": extract_es,
-        "gen_sql_command": gen_ershou_insert_command
+        "gen_sql_command": gen_ershou_insert_command,
+        "mode": 'increment'
     }
     do_spider(db, pre_conf)
 

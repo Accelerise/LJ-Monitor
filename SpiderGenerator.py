@@ -101,7 +101,7 @@ def do_spider(db, pre_conf):
         db.execute(command, 1)
         info_dict.update({u'日期': now})
         price_command = gen_price_insert_command(info_dict)
-        db.execute(price_command)
+        db.execute(price_command, 1)
 
     def region_spider(region):
         url = url_base + region + "/"

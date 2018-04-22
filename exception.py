@@ -4,13 +4,13 @@ import threading
 lock = threading.Lock()
 
 def writeWithLogFile(file):
-    def exception_write(fun_name, xq_name, url):
+    def exception_write(fun_name, url):
         """
         写入异常信息到日志
         """
         lock.acquire()
         f = open(file, 'a')
-        line = "%s %s %s\n" % (fun_name, xq_name, url)
+        line = "%s %s\n" % (fun_name, url)
         f.write(line)
         f.close()
         lock.release()

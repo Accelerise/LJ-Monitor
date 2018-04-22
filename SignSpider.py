@@ -78,7 +78,9 @@ def chengjiao_spider(db_cj,xq_name,url_page=u"http://bj.lianjia.com/chengjiao/pg
         except Exception,e:
             print e
             exception_write('chengjiao_spider',xq_name,url_page)
-            continue 
+            continue
+        print u"链接：%s" % url
+        print info_dict
         command=gen_chengjiao_insert_command(info_dict)
         db_cj.execute(command,1)
 
@@ -107,7 +109,7 @@ def xiaoqu_chengjiao_spider(db_cj,xq_name):
         exec(d)
         total_pages=d['totalPage']
     
-    # print u'总页数：' + str(total_pages)
+    print u'总页数：' + str(total_pages)
     threads=[]
     for i in range(total_pages):
         url_page=u"http://bj.lianjia.com/chengjiao/pg%drs%s/" % (i+1,urllib2.quote(xq_name))
@@ -125,9 +127,9 @@ def do_xiaoqu_chengjiao_spider(db_xq,db_cj):
     """
     count=0
     xq_list=db_xq.fetchall()
-    cj_url_list = db_cj.fetchall("select href from xiaoqu")
+    cj_url_list = db_cj.fetchall("select href from chengjiao")
     for cj_url in cj_url_list:
-        bf.add(cj_url)
+        bf.add(cj_url[0])
     for xq in xq_list:
         xiaoqu_chengjiao_spider(db_cj,xq[0])
         count+=1
