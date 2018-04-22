@@ -91,17 +91,17 @@ headers = {
 req = urllib2.Request(auth_url, post_data, headers)
 
 
-try:
-    result = opener.open(req)
-except urllib2.HTTPError, e:
-    print e.getcode()  
-    print e.reason  
-    print e.geturl()  
-    print e.info()
-    req = urllib2.Request(e.geturl())
-    result = opener.open(req)
-    req = urllib2.Request(chengjiao_url)
-    result = opener.open(req).read()
+# try:
+#     result = opener.open(req)
+# except urllib2.HTTPError, e:
+#     print e.getcode()
+#     print e.reason
+#     print e.geturl()
+#     print e.info()
+#     req = urllib2.Request(e.geturl())
+#     result = opener.open(req)
+#     req = urllib2.Request(chengjiao_url)
+#     result = opener.open(req).read()
     #print result
 
 
