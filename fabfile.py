@@ -35,10 +35,14 @@ def download(path):
         get(path, './')
 
 def getDB():
-    '下载数据库文件'
-
+    # 下载数据库文件
     download(env.cj_db)
     download(env.zf_db)
     download(env.es_db)
     download(env.xq_db)
+
+def crontab_reload():
+    # 重新加载 crontab 配置文件
+    sudo("/etc/init.d/cron reload")
+
 
