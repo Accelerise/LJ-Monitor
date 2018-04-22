@@ -61,6 +61,7 @@ def chengjiao_spider(db_cj,xq_name,url_page=u"http://bj.lianjia.com/chengjiao/pg
         url = href.attrs['href']
         if bf.isContain(url):
             continue
+        bf.add(url)
         info_dict.update({u'链接':url})
         info_dict.update({u'小区名称':xq_name})
         try:

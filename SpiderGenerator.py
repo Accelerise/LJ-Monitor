@@ -68,10 +68,12 @@ def do_spider(db, pre_conf):
             if not href:
                 continue
             url = href.attrs['href']
-            if not bf.isContain(url):
+            if bf.isContain(url):
                 print "「%s」 is Contained!" % url
-                detail_spider(url)
-                bf.add(url)
+                continue
+            detail_spider(url)
+            bf.add(url)
+
 
 
     def detail_spider(url):
