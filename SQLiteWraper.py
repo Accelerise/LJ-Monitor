@@ -131,3 +131,15 @@ def gen_ershou_insert_command(info_dict):
     t = tuple(t)
     command = (r"insert or ignore into ershou values(?,?,?,?,?,?)", t)
     return command
+
+def gen_price_insert_command(info_dict):
+    info_list = [u'链接', u'日期', u'签约单价', u'签约总价', u'租金']
+    t = []
+    for il in info_list:
+        if il in info_dict:
+            t.append(info_dict[il])
+        else:
+            t.append('')
+    t = tuple(t)
+    command = (r"insert or ignore into price values(?,?,?,?,?)", t)
+    return command

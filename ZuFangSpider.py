@@ -7,7 +7,7 @@ from SpiderGenerator import do_spider
 
 if __name__ == "__main__":
 
-    command = "create table if not exists zufang (href TEXT primary key UNIQUE, style TEXT, area TEXT, unit_price TEXT, type TEXT,lng_lat TEXT)"
+    command = "create table if not exists zufang (href TEXT primary key UNIQUE, style TEXT, area TEXT, rent TEXT, type TEXT,lng_lat TEXT)"
     db = SQLiteWraper('lianjia-detail-zf.db', command)
     pre_conf = {
         "name": "ershou",
