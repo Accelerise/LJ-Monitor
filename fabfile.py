@@ -55,6 +55,6 @@ def deploy():
     with settings(sudo_user="accelerise"):
         with cd('~/Projects/LJ-Monitor'):
             sudo("git reset --hard && git pull")
-            sudo("/etc/init.d/cron reload")
+            sudo("crontab ~/Projects/LJ-Monitor/crontab")
 
 
