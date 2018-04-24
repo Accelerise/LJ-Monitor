@@ -41,9 +41,17 @@ def getDB():
     download(env.es_db)
     download(env.xq_db)
 
+def getLog():
+    download("~/log/zufang_entire.txt")
+    download("~/log/zufang_increment.txt")
+    download("~/log/ershou_entire.txt")
+    download("~/log/ershou_increment.txt")
+    download("~/log/sign_log.txt")
+
 def deploy():
     # 重新加载 crontab 配置文件
-    run("mkdir ~/log")
+    if not files.exists("~/log"):
+        run("mkdir ~/log")
     with settings(sudo_user="accelerise"):
         with cd('~/Projects/LJ-Monitor'):
             sudo("git reset --hard && git pull")
