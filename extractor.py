@@ -46,7 +46,8 @@ def get_prop(panel_text, propRule):
     if match:
         if bool(match.groups()):
             return ''.join(match.group(1).split())
-        return ''.join(match.group().split())
+        if bool(match.group()):
+            return ''.join(match.group().split())
     return None
 
 def extractUsingPropsMap(propsMap, domSelectors):

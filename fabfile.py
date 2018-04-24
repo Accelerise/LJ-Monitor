@@ -43,6 +43,7 @@ def getDB():
 
 def deploy():
     # 重新加载 crontab 配置文件
+    run("mkdir ~/log")
     with settings(sudo_user="accelerise"):
         with cd('~/Projects/LJ-Monitor'):
             sudo("git reset --hard && git pull")
