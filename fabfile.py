@@ -41,7 +41,7 @@ def getDB():
     download(env.es_db)
     download(env.xq_db)
 
-def restart():
+def deploy():
     # 重新加载 crontab 配置文件
     with settings(sudo_user="accelerise"):
         with cd('~/Projects/LJ-Monitor'):
