@@ -2,4 +2,6 @@
 *.db
 *.html
 *_log.txt
+*_increment.txt
+*_entire.txt
 .idea
