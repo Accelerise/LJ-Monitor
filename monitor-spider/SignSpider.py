@@ -167,10 +167,10 @@ def exception_spider(db_cj):
 
 if __name__=="__main__":
     command="create table if not exists xiaoqu (name TEXT primary key UNIQUE, regionb TEXT, regions TEXT, style TEXT, year TEXT)"
-    db_xq=SQLiteWraper('lianjia-xq.db',command)
+    db_xq=SQLiteWraper('../lianjia-xq.db',command)
     
     command="create table if not exists chengjiao (href TEXT primary key UNIQUE, name TEXT, style TEXT, area TEXT, sign_time TEXT, unit_price TEXT, total_price TEXT,lng_lat TEXT)"
-    db_cj=SQLiteWraper('lianjia-detail-cj.db',command)
+    db_cj=SQLiteWraper('../lianjia-detail-cj.db',command)
 
     #爬下所有小区里的成交信息
     do_xiaoqu_chengjiao_spider(db_xq,db_cj)

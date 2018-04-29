@@ -85,7 +85,7 @@ def do_xiaoqu_spider(db_xq, region=u"昌平"):
 
 if __name__=="__main__":
     command="create table if not exists xiaoqu (name TEXT primary key UNIQUE, regionb TEXT, regions TEXT, style TEXT, year TEXT)"
-    db_xq=SQLiteWraper('lianjia-xq.db',command)
+    db_xq=SQLiteWraper('../lianjia-xq.db',command)
     #爬下所有的小区信息
     for region in regions:
         do_xiaoqu_spider(db_xq,region)

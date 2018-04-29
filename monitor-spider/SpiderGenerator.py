@@ -180,7 +180,7 @@ def do_spider(db, pre_conf):
 if __name__ == "__main__":
 
     command = "create table if not exists ershou (href TEXT primary key UNIQUE, style TEXT, area TEXT, unit_price TEXT, total_price TEXT,lng_lat TEXT)"
-    db = SQLiteWraper('lianjia-detail-es.db', command)
+    db = SQLiteWraper('../lianjia-detail-es.db', command)
     command = "create table if not exists price (href TEXT, time_stamp INTEGER, unit_price TEXT, total_price TEXT, rent TEXT, PRIMARY KEY (href, time_stamp))"
     db.execute(command)
     pre_conf = {
