@@ -7,5 +7,5 @@
 # 每天 18:23 执行一次二手房商品的增量爬取
 23 18 * * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./ErShouSpider.py -m inc >> ~/log/ershou_increment.txt 2>&1
 
-# 每隔两周，在当天 22:00 执行一次成交记录爬虫
-0 22 * */2 * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./SignSpider.py >> ~/log/sign_log.txt 2>&1
+# 每天 22:00 执行一次成交记录爬虫
+0 22 */1 * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./SignSpider.py >> ~/log/sign_log.txt 2>&1

@@ -54,7 +54,7 @@ def do_spider(db, pre_conf):
             req = urllib2.Request(list_url, headers=hds[random.randint(0, len(hds) - 1)])
             source_code = urllib2.urlopen(req, timeout=10).read()
             plain_text = unicode(source_code)  # ,errors='ignore')
-            soup = BeautifulSoup(plain_text)
+            soup = BeautifulSoup(plain_text, "lxml")
         except (urllib2.HTTPError, urllib2.URLError), e:
             print e
             exception_write(list_spider_name, list_url)
@@ -71,7 +71,7 @@ def do_spider(db, pre_conf):
                 continue
             url = href.attrs['href']
             if bf.isContain(url):
-                print "「%s」 is Contained!" % url
+                # print "「%s」 is Contained!" % url
                 continue
             detail_spider(url)
             bf.add(url)
@@ -109,7 +109,7 @@ def do_spider(db, pre_conf):
             req = urllib2.Request(url, headers=hds[random.randint(0, len(hds) - 1)])
             source_code = urllib2.urlopen(req, timeout=5).read()
             plain_text = unicode(source_code)  # ,errors='ignore')
-            soup = BeautifulSoup(plain_text)
+            soup = BeautifulSoup(plain_text, "lxml")
         except (urllib2.HTTPError, urllib2.URLError), e:
             print e
             return
