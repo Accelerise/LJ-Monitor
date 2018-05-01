@@ -50,8 +50,7 @@ def chengjiao_spider(db_cj,xq_name,url_page=u"http://bj.lianjia.com/chengjiao/pg
         return
     
     cj_list=soup.findAll('div',{'class':'info'})
-    # print u'搜索到成交数量：' + str(cj_list.__len__())
-    # print u'地址' + url_page
+
     for cj in cj_list:
 
         info_dict={}
@@ -109,7 +108,7 @@ def xiaoqu_chengjiao_spider(db_cj,xq_name):
         exec(d)
         total_pages=d['totalPage']
     
-    print u'总页数：' + str(total_pages)
+    print xq_name + u' 总页数：' + str(total_pages)
     threads=[]
     for i in range(total_pages):
         url_page=u"http://bj.lianjia.com/chengjiao/pg%drs%s/" % (i+1,urllib2.quote(xq_name))
@@ -130,6 +129,8 @@ def do_xiaoqu_chengjiao_spider(db_xq,db_cj):
     cj_url_list = db_cj.fetchall("select href from chengjiao")
     for cj_url in cj_url_list:
         bf.add(cj_url[0])
+    print u'已有链接数：', len(cj_url_list)
+    print u'小区数：', len(xq_list)
     for xq in xq_list:
         xiaoqu_chengjiao_spider(db_cj,xq[0])
         count+=1

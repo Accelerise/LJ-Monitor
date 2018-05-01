@@ -95,6 +95,8 @@ def gen_chengjiao_insert_command(info_dict):
     t=[]
     for il in info_list:
         if il in info_dict:
+            if il is u'签约时间':
+                info_dict[il] = info_dict[il].replace(".", "-")
             t.append(info_dict[il])
         else:
             t.append('')
