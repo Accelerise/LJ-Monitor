@@ -1,11 +1,11 @@
 # 每周六的 1:00 执行一次租房商品的全站爬取
-0 1 * * 6 export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./monitor-spider/ZuFangSpider.py >> ~/log/zufang_entire.txt 2>&1
+0 1 * * 6 export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor/monitor-spider && ~/.virtualenvs/env27/bin/python ./ZuFangSpider.py >> ~/log/zufang_entire.txt 2>&1
 # 每天 7:00 执行一次租房商品的增量爬取
-0 7 * * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./monitor-spider/ZuFangSpider.py -m inc >> ~/log/zufang_increment.txt 2>&1
+0 7 * * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor/monitor-spider && ~/.virtualenvs/env27/bin/python ./ZuFangSpider.py -m inc >> ~/log/zufang_increment.txt 2>&1
 # 每隔五天，在当天 3:00 执行一次二手房商品的全站爬取
-0 3 */5 * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./monitor-spider/ErShouSpider.py >> ~/log/ershou_entire.txt 2>&1
+0 3 */5 * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor/monitor-spider && ~/.virtualenvs/env27/bin/python ./ErShouSpider.py >> ~/log/ershou_entire.txt 2>&1
 # 每天 18:23 执行一次二手房商品的增量爬取
-23 18 * * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./monitor-spider/ErShouSpider.py -m inc >> ~/log/ershou_increment.txt 2>&1
+23 18 * * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor/monitor-spider && ~/.virtualenvs/env27/bin/python ./ErShouSpider.py -m inc >> ~/log/ershou_increment.txt 2>&1
 
 # 每天 22:00 执行一次成交记录爬虫
-0 22 */1 * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor && ~/.virtualenvs/env27/bin/python ./monitor-spider/SignSpider.py >> ~/log/sign_log.txt 2>&1
+0 22 */1 * * export PYTHONIOENCODING=utf-8 && cd ~/Projects/LJ-Monitor/monitor-spider && ~/.virtualenvs/env27/bin/python ./SignSpider.py >> ~/log/sign_log.txt 2>&1
