@@ -6,12 +6,12 @@ from lxml import etree
 import re
 
 styleRule = ur'(\d室\d厅(\d卫)?)|(\d房间(\d卫)?)'
-sizeRule = ur'[\d.]+平米'
-unitPriceRule = ur'[\d.]+元/平'
-totalPriceRule = ur'[\d.]+万'
+sizeRule = ur'([\d.]+)平米'
+unitPriceRule = ur'([\d.]+)元/平'
+totalPriceRule = ur'([\d.]+)万'
 signDateRule = ur'\d{4}\.\d{2}.\d{2}'
 positionRule = ur'resblockPosition:\'([\d.]+,[\d.]+)\''
-rentRule = ur'[\d.]+\s+元/月'
+rentRule = ur'([\d.]+)\s+元/月'
 hireType = ur'[整合]租'
 
 
