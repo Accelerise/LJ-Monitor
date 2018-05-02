@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from fabric.api import env, sudo, settings, hosts, cd, task, run, local, get
+from fabric.api import env, sudo, settings, hosts, cd, task, run, local, get, put
 from fabric.contrib import files
 from fabric.colors import green
 from fabric.context_managers import shell_env
@@ -34,6 +34,10 @@ def download(path):
         print 'downloading %s' % path
         get(path, './')
 
+def overwrite(path):
+    print 'overwrite %s' % path
+    put('./'+path, '~/Projects/LJ-Monitor/'+path)
+
 def getDB():
     # 下载数据库文件
     download(env.cj_db)
@@ -57,4 +61,7 @@ def deploy():
             sudo("git reset --hard && git pull")
             sudo("crontab ~/Projects/LJ-Monitor/crontab")
 
-
+def overwriteDB():
+    overwrite('lianjia-detail-cj.db')
+    overwrite('lianjia-detail-es.db')
+    overwrite('lianjia-detail-zf.db')
