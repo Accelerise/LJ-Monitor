@@ -50,7 +50,7 @@ def get_prop(panel_text, propRule):
             return ''.join(match.group().split())
     return None
 
-def extractUsingPropsMap(propsMap, domSelectors):
+def extractUsingPropsMap(propsMap, domSelectors, isStrict=False):
     propsNames = propsMap.keys()
     def extract(page, originData={}):
         currentPropNames = [x for x in propsNames]
@@ -71,11 +71,12 @@ def extractUsingPropsMap(propsMap, domSelectors):
             for panel in panels:
                 dom_text = panel.xpath('string(.)')
                 extract_props(dom_text, data)
-
+        if isStrict and len(currentPropNames) != 0:
+            return None
         return data
     return extract
 
-extract_cj = extractUsingPropsMap(cjPropsMap, ['.wrapper', 'script'])
+extract_cj = extractUsingPropsMap(cjPropsMap, ['.wrapper', 'script'], True)
 extract_zf = extractUsingPropsMap(zfPropsMap, ['.overview', 'script'])
 extract_es = extractUsingPropsMap(esPropsMap, ['.overview', 'script'])
 

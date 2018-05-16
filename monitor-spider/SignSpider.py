@@ -69,6 +69,8 @@ def chengjiao_spider(db_cj,xq_name,url_page=u"http://bj.lianjia.com/chengjiao/pg
             detail_source_code = urllib2.urlopen(detail_req,timeout=10).read()
             detail_plain_text=unicode(detail_source_code)
             extract_res = extract_cj(detail_plain_text)
+            if extract_res is None:
+                continue
             info_dict.update(extract_res)
         except (urllib2.HTTPError, urllib2.URLError), e:
             print e
