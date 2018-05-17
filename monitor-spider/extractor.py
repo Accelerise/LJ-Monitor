@@ -77,8 +77,8 @@ def extractUsingPropsMap(propsMap, domSelectors, isStrict=False):
     return extract
 
 extract_cj = extractUsingPropsMap(cjPropsMap, ['.wrapper', 'script'], True)
-extract_zf = extractUsingPropsMap(zfPropsMap, ['.overview', 'script'])
-extract_es = extractUsingPropsMap(esPropsMap, ['.overview', 'script'])
+extract_zf = extractUsingPropsMap(zfPropsMap, ['.overview', 'script'], True)
+extract_es = extractUsingPropsMap(esPropsMap, ['.overview', 'script'], True)
 
 
 
